@@ -23,7 +23,7 @@ def game():
     while True:
         screen.fill(BACKGROUND)
 
-        player.update()
+        player.update(boxes)
         player.draw(screen)
         boxes.draw(screen)
 

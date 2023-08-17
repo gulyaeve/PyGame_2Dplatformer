@@ -12,18 +12,21 @@ class Player(Sprite):
         self.gravity = 1
         self.vertical_speed = 0
 
-    def update(self) -> None:
+    def update(self, boxes) -> None:
         horizontal_speed = 0
+        onground = pygame.sprite.spritecollideany(self, boxes)
 
         key = pygame.key.get_pressed()
         if key[pygame.K_LEFT]:
             horizontal_speed = -self.speed
         if key[pygame.K_RIGHT]:
             horizontal_speed = self.speed
-        if key[pygame.K_UP]:
+        if key[pygame.K_UP] and onground:
             self.vertical_speed = -self.jump
-        if self.vertical_speed < 10:
+        if self.vertical_speed < 10 and not onground:
             self.vertical_speed += self.gravity
+        if self.vertical_speed > 0 and onground:
+            self.vertical_speed = 0
 
         self.move(horizontal_speed, self.vertical_speed)
 
