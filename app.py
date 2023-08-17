@@ -2,6 +2,7 @@ import sys
 
 import pygame
 
+from box import Box
 from player import Player
 
 WIDTH = 400
@@ -15,12 +16,16 @@ def game():
     clock = pygame.time.Clock()
 
     player = Player(100, 100)
+    boxes = pygame.sprite.Group()
+    for box in range(0, 400, 50):
+        boxes.add(Box(box, 300))
 
     while True:
         screen.fill(BACKGROUND)
 
         player.update()
         player.draw(screen)
+        boxes.draw(screen)
 
         pygame.display.flip()
         clock.tick(60)  # FPS
